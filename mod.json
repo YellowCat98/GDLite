@@ -1,0 +1,14 @@
+{
+	"geode": "2.0.0-beta.17",
+	"gd": "*",
+	"version": "v1.0.0",
+	"id": "yellowcat98.gdlite",
+	"name": "GDLite",
+	"developer": "YellowCat98",
+	"description": "This mod turns Geometry dash into Geometry Dash Lite, purely cosmetic, doesn't actually restrict you from any Full Version features.",
+	"resources": {
+		"sprites": [
+			"resources/*.png"
+		]
+	}
+}
