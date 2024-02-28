@@ -11,7 +11,6 @@
 
 using namespace geode::prelude;
 using namespace cocos2d;
-using namespace std;
 
 class $modify(MenuLayer) {
     bool init() {
@@ -105,6 +104,10 @@ class $modify(GJMoreGamesLayer) {
         CCLayer* cclayer = dynamic_cast<CCLayer*>(getChildren()->objectAtIndex(0));
 
 
+        auto hidemgmm = Mod::get()->getSettingValue<bool>("remove-more-games-menu-modification");
+
+        if (!hidemgmm) {
+
         CCSprite* gjmpromo = CCSprite::create("promo_gjm-hd.png"_spr);
         CCSprite* gjzpromo = CCSprite::create("promo_gjz-hd.png"_spr);
         CCSprite* gjwpromo = CCSprite::create("promo_gjw-hd.png"_spr);
@@ -130,6 +133,7 @@ class $modify(GJMoreGamesLayer) {
         cclayer->addChild(gjwpromo);
         cclayer->addChild(gjmpromo);
         cclayer->addChild(easports);
+        }
 
         #endif
     }
