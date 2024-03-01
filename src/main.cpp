@@ -148,12 +148,35 @@ class $modify(PlayLayer) {
         UILayer*  uilayer = static_cast<UILayer*>(this->getChildByID("UILayer"));
         CCLabelBMFont* label = CCLabelBMFont::create("GDLite. free trial", "bigFont.fnt");
 
-        label->setPosition(ccp(41, 9));
+        switch (Mod::get()->getSettingValue<int64_t>("gdlite-wm-pos"))
+        {
+            case 0:
+            /* hide label */
+            label->setVisible(false);
+            break;
+
+            case 1:
+            /* bottom left */
+            label->setPosition(41, 10);
+            break;
+
+            case 2:
+            /* bottom right */
+            label->setPosition(525, 10);
+            break;
+
+            case 3:
+            /* top left */
+            label->setPosition(41, 310);
+            break;
+
+            case 4:
+            /* top right */
+            label->setPosition(525, 310);
+            break;
+        }
+
         label->setScale(0.225f);
-
-        auto hidegdlitewmornot = Mod::get()->getSettingValue<bool>("hide-gdlite-watermark");
-
-        label->setVisible(!hidegdlitewmornot);
 
         uilayer->addChild(label);
     return true;

@@ -4,7 +4,7 @@
 		"win": "2.204",
 		"android": "2.205"
 	},
-	"version": "v1.2.0",
+	"version": "v1.2.1",
 	"id": "yellowcat98.gdlite",
 	"name": "GDLite",
 	"developer": "YellowCat98",
@@ -28,17 +28,19 @@
 			"type": "bool",
 			"default": false
 		},
-		"hide-gdlite-watermark": {
-			"name": "Hide the GDLite watermark",
-			"description": "Hides the 'GDLite, Free Trial' watermark from PlayLayer.",
-			"type": "bool",
-			"default": false
-		},
 		"remove-more-games-menu-modification" : {
 			"name": "Remove More Games Menu Modification",
 			"description": "Remove more games menu modification to prevent incompatibility",
 			"type": "bool",
 			"default": false
+		},
+		"gdlite-wm-pos": {
+			"name": "GDLite Watermark Position",
+			"description": "Ability to change the GDLite watermark position\n 0 = no watermark at all\n 1 = Bottom Left\n 2 = Bottom Right\n 3 = Top Left\n 4 = Top Right",
+			"type": "int",
+			"default": 1,
+			"min": 0,
+			"max": 4
 		}
 	}
 }
