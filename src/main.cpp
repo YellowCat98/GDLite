@@ -98,7 +98,7 @@ class $modify(MenuLayer) {
 class $modify(GJMoreGamesLayer) {
     void customSetup() {
         GJMoreGamesLayer::customSetup();
-        #ifndef GEODE_IS_ANDROID
+        #ifndef GEODE_IS_MOBILE
 
 
         CCLayer* cclayer = dynamic_cast<CCLayer*>(getChildren()->objectAtIndex(0));
