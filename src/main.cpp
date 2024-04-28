@@ -182,3 +182,23 @@ class $modify(PlayLayer) {
     return true;
     }
 };
+
+class $modify(LoadingLayer) {
+    bool init(bool p0) {
+        if (!LoadingLayer::init(p0))
+            return false;
+
+        CCSprite* litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
+
+        CCSprite* maintitle = static_cast<CCSprite*>(this->getChildByID("gd-logo")); /* i love you robtop */
+        auto maintitlexpos = maintitle->getPositionX();
+        auto maintitleypos = maintitle->getPositionY();
+
+        litespr->setPosition(ccp(maintitlexpos + 149, maintitleypos - 32));
+
+        this->addChild(litespr);
+
+        return true;
+    }
+
+};
