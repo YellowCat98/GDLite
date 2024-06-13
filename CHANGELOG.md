@@ -1,6 +1,7 @@
 # 1.3.0
 - 2.206 support
 - fixed issue where the "lite" text appears on the loading screen regardless whether its disabled or not
+- added herobrine
 # 1.2.2
 - ios support
 
