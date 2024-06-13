@@ -13,7 +13,7 @@
 	"early-load": true,
 	"tags": [
 		"interface"
-	]
+	],
 	"dependencies": [
 		{
 			"id": "geode.node-ids",
