@@ -11,9 +11,9 @@
 	"developer": "YellowCat98",
 	"description": "This mod turns Geometry dash into Geometry Dash Lite, purely cosmetic, doesn't actually restrict you from any Full Version features.",
 	"early-load": true,
-	"links": {
-		"source": "https://github.com/YellowCat98/GDLite"
-	},
+	"tags": [
+		"interface"
+	]
 	"dependencies": [
 		{
 			"id": "geode.node-ids",
