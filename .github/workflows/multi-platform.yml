@@ -15,10 +15,9 @@ jobs:
         - name: Windows
           os: windows-latest
 
-        
         # - name: iOS # what kind of person makes an ios version of their mod but not macos (me)
-        #  os: macos-latest
-        #  target: iOS
+        #   os: macos-latest
+        #   target: iOS
         # removed ios until its supported for 2.206
 
         - name: Android32
@@ -34,6 +33,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Clone geode-bindings repository
+        run: |
+          git clone https://github.com/YellowCat98/geode-bindings.git
+          echo "GEODE_BINDINGS_REPO_PATH=$(pwd)/geode-bindings" >> $GITHUB_ENV
+        shell: bash
 
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
