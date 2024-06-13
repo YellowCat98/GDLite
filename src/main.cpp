@@ -187,16 +187,18 @@ class $modify(LoadingLayer) {
     bool init(bool p0) {
         if (!LoadingLayer::init(p0))
             return false;
+        if (Mod::get()->getSettingValue<bool>("lite-spr-onloadinglayer")) {
+            CCSprite* litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
 
-        CCSprite* litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
+            CCSprite* maintitle = static_cast<CCSprite*>(this->getChildByID("gd-logo")); /* i love you robtop */
+            auto maintitlexpos = maintitle->getPositionX();
+            auto maintitleypos = maintitle->getPositionY();
 
-        CCSprite* maintitle = static_cast<CCSprite*>(this->getChildByID("gd-logo")); /* i love you robtop */
-        auto maintitlexpos = maintitle->getPositionX();
-        auto maintitleypos = maintitle->getPositionY();
+            litespr->setPosition(ccp(maintitlexpos + 149, maintitleypos - 32));
 
-        litespr->setPosition(ccp(maintitlexpos + 149, maintitleypos - 32));
+            this->addChild(litespr);            
+        }
 
-        this->addChild(litespr);
 
         return true;
     }
