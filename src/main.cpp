@@ -95,6 +95,7 @@ class $modify(MenuLayer) {
     }
 };
 
+/*
 class $modify(GJMoreGamesLayer) {
     void customSetup() {
         GJMoreGamesLayer::customSetup();
@@ -138,7 +139,7 @@ class $modify(GJMoreGamesLayer) {
         #endif
     }
 };
-
+*/
 
 class $modify(PlayLayer) {
     bool init(GJGameLevel* p0, bool p1, bool p2) {
