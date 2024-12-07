@@ -1,3 +1,8 @@
+# 1.3.2
+- 2.2074 support
+- removed herobrine
+- mac support
+
 # 1.3.0
 - 2.206 support
 - fixed issue where the "lite" text appears on the loading screen regardless whether its disabled or not
