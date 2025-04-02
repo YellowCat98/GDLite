@@ -1,3 +1,6 @@
+# 1.3.3
+- iOS support back again!
+
 # 1.3.2
 - 2.2074 support
 - removed herobrine
