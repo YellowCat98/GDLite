@@ -3,6 +3,7 @@
 #include <Geode/Bindings.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
+#include <Geode/modify/CreatorLayer.hpp>
 #include <Geode/modify/GJPromoPopup.hpp>
 #include <Geode/modify/CreatorLayer.hpp>
 #include <Geode/modify/GJMoreGamesLayer.hpp>
@@ -44,42 +45,6 @@ class $modify(MenuLayer) {
         if (!MenuLayer::init())
             return false;
 
-        CCMenu* rightSideMenu = static_cast<CCMenu*>(this->getChildByID("right-side-menu"));
-
-        if (rightSideMenu) {
-            CCMenuItemSpriteExtra* dailychest = static_cast<CCMenuItemSpriteExtra*>(rightSideMenu->getChildByID("daily-chest-button"));
-
-            if (dailychest) {
-                CCSprite* freekeveks = CCSprite::createWithSpriteFrameName("GJ_freeStuffBtn_001.png");
-                dailychest->setNormalImage(freekeveks);
-            }
-        }
-
-        return true;
-    }
-};
-
-class $modify(MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init())
-            return false;
-
-        CCMenu* MainMenu = static_cast<CCMenu*>(this->getChildByID("main-menu"));
-
-            CCMenuItemSpriteExtra* editbtn = static_cast<CCMenuItemSpriteExtra*>(MainMenu->getChildByID("editor-button"));
-
-            CCSprite* fullbtn = CCSprite::createWithSpriteFrameName("GJ_fullBtn_001.png");
-            editbtn->setNormalImage(fullbtn);
-
-        return true;
-    }
-};
-
-class $modify(MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init())
-            return false;
-
         CCMenu* moregamesmenu = static_cast<CCMenu*>(this->getChildByID("more-games-menu"));
 
         if (moregamesmenu) {
@@ -109,9 +74,9 @@ class $modify(GJMoreGamesLayer) {
 
         if (!hidemgmm) {
 
-        CCSprite* gjmpromo = CCSprite::create("promo_gjm-hd.png"_spr);
-        CCSprite* gjzpromo = CCSprite::create("promo_gjz-hd.png"_spr);
-        CCSprite* gjwpromo = CCSprite::create("promo_gjw-hd.png"_spr);
+        CCSprite* gjmpromo = CCSprite::create("promo_gjm.png"_spr);
+        CCSprite* gjzpromo = CCSprite::create("promo_gjz.png"_spr);
+        CCSprite* gjwpromo = CCSprite::create("promo_gjw.png"_spr);
         CCLabelBMFont* easports = CCLabelBMFont::create("this bad design is fixed in the full version of Geometry Dash Lite.", "bigFont.fnt");
 
         CCLabelBMFont* wgat = dynamic_cast<CCLabelBMFont*>(cclayer->getChildren()->objectAtIndex(4));
@@ -121,9 +86,9 @@ class $modify(GJMoreGamesLayer) {
         gjzpromo->setPosition(ccp(283, 219));
         gjwpromo->setPosition(ccp(283, 127));
         gjmpromo->setPosition(ccp(283, 34));
-        gjzpromo->setScale(2.01f);
-        gjmpromo->setScale(2.01f);
-        gjwpromo->setScale(2.01f);
+        gjzpromo->setScale(1.01f);
+        gjmpromo->setScale(1.01f);
+        gjwpromo->setScale(1.01f);
         wgat->setVisible(false);
         easports->setScale(0.4f);
         easports->setPosition(283.5, 308);
@@ -203,5 +168,21 @@ class $modify(LoadingLayer) {
 
         return true;
     }
+};
 
+class $modify(MyCreatorLayer, CreatorLayer) {
+    bool init() {
+        if (!CreatorLayer::init())
+            return false;
+
+        if (auto menu = typeinfo_cast<CCMenu*>(this->getChildByID("creator-buttons-menu"))) {
+            if (auto creator = typeinfo_cast<CCMenuItemSpriteExtra*>(menu->getChildByID("create-button"))) { creator->setColor({128, 128, 128}); }
+            if (auto map = typeinfo_cast<CCMenuItemSpriteExtra*>(menu->getChildByID("map-button"))) { map->setColor({128, 128, 128}); }
+            if (auto gauntlets = typeinfo_cast<CCMenuItemSpriteExtra*>(menu->getChildByID("gauntlets-button"))) { gauntlets->setColor({128, 128, 128}); }
+            if (auto packs = typeinfo_cast<CCMenuItemSpriteExtra*>(menu->getChildByID("map-packs-button"))) { packs->setColor({128, 128, 128}); }
+            if (auto search = typeinfo_cast<CCMenuItemSpriteExtra*>(menu->getChildByID("search-button"))) { search->setColor({128, 128, 128}); }
+        }
+
+        return true;
+    }
 };
