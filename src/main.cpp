@@ -1,9 +1,6 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
-#include <Geode/modify/GJPromoPopup.hpp>
-#include <Geode/modify/CreatorLayer.hpp>
-#include <Geode/modify/GJMoreGamesLayer.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
 
 using namespace geode::prelude;
@@ -77,36 +74,33 @@ class $modify(PlayLayer) {
     bool init(GJGameLevel* p0, bool p1) {
         if (!PlayLayer::init(p0, p1)) return false;
 
-        auto uilayer = static_cast<UILayer*>(this->getChildByID("UILayer"));
         auto label = CCLabelBMFont::create("GDLite. free trial", "bigFont.fnt");
-
+        label->setID("gd-lite-trial-message");
+        label->setScale(0.225f);
+        // these offsets are for bottom left, the others just use them and apply the proper signs (negative/positive)
+        float xOffset = 38.0f;
+        float yOffset = 5.0f;
         switch (Mod::get()->getSettingValue<int64_t>("gdlite-wm-pos")) {
-            case 0: { // hide label
-                label->setVisible(false);
-                break;
-            }
+            case 0: break; // dies on its own
             case 1: { // bottom left
-                label->setPosition(41, 10);
+                m_uiLayer->addChildAtPosition(label, Anchor::BottomLeft, {xOffset, yOffset}, false);
                 break;
             }
             case 2: { // bottom right
-                label->setPosition(525, 10);
+                m_uiLayer->addChildAtPosition(label, Anchor::BottomRight, {-xOffset, yOffset}, false);
                 break;
             }
             case 3: { // top left
-                label->setPosition(41, 310);
+                m_uiLayer->addChildAtPosition(label, Anchor::TopLeft, {xOffset, -yOffset}, false);
                 break;
             }
             case 4: { // top right
-                label->setPosition(525, 310);
+                m_uiLayer->addChildAtPosition(label, Anchor::TopRight, {-xOffset, -yOffset}, false);
                 break;
             }
         }
 
-        label->setScale(0.225f);
-
-        uilayer->addChild(label);
-    return true;
+        return true;
     }
 };
 
