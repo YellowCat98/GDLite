@@ -8,169 +8,101 @@
 
 using namespace geode::prelude;
 
-class $modify(MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init())
-            return false;
+void addLiteSprite(MenuLayer* menuLayer) {
+    auto litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
 
-        CCSprite* litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
+    auto maintitle = static_cast<CCSprite*>(menuLayer->getChildByID("main-title"));
+    auto maintitlexpos = maintitle->getPositionX();
+    auto maintitleypos = maintitle->getPositionY();
 
-        CCSprite* maintitle = static_cast<CCSprite*>(this->getChildByID("main-title"));
-        auto maintitlexpos = maintitle->getPositionX();
-        auto maintitleypos = maintitle->getPositionY();
+    litespr->setPosition({maintitlexpos + 149, maintitleypos - 32});
+    litespr->setZOrder(2);
+    litespr->setID("lite-button");
 
-        litespr->setPosition(ccp(maintitlexpos + 149, maintitleypos - 32));
-        litespr->setZOrder(2);
-        litespr->setID("lite-button");
+    litespr->setVisible(!Mod::get()->getSettingValue<bool>("hide-lite-spr"));
 
+    menuLayer->addChild(litespr);
+}
 
-        auto hideornot = Mod::get()->getSettingValue<bool>("hide-lite-spr");
+void replaceRightBtn(MenuLayer* menuLayer) {
+    auto rightSideMenu = static_cast<CCMenu*>(menuLayer->getChildByID("right-side-menu"));
 
-        litespr->setVisible(!hideornot);
+    if (rightSideMenu) {
+        auto dailychest = static_cast<CCMenuItemSpriteExtra*>(rightSideMenu->getChildByID("daily-chest-button"));
 
-
-        this->addChild(litespr);
-
-        return true;
-    }
-};
-
-class $modify(MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init())
-            return false;
-
-        CCMenu* rightSideMenu = static_cast<CCMenu*>(this->getChildByID("right-side-menu"));
-
-        if (rightSideMenu) {
-            CCMenuItemSpriteExtra* dailychest = static_cast<CCMenuItemSpriteExtra*>(rightSideMenu->getChildByID("daily-chest-button"));
-
-            if (dailychest) {
-                CCSprite* freekeveks = CCSprite::createWithSpriteFrameName("GJ_freeStuffBtn_001.png");
-                dailychest->setNormalImage(freekeveks);
-            }
+        if (dailychest) {
+            auto freekeveks = CCSprite::createWithSpriteFrameName("GJ_freeStuffBtn_001.png");
+            dailychest->setNormalImage(freekeveks);
         }
-
-        return true;
     }
-};
+}
+
+void replaceCreatorSprite(MenuLayer* menuLayer) {
+    auto MainMenu = static_cast<CCMenu*>(menuLayer->getChildByID("main-menu"));
+
+    auto editbtn = static_cast<CCMenuItemSpriteExtra*>(MainMenu->getChildByID("editor-button"));
+
+    auto fullbtn = CCSprite::createWithSpriteFrameName("GJ_fullBtn_001.png");
+    editbtn->setNormalImage(fullbtn);
+}
+
+void doMoreGamesStuff(MenuLayer* menuLayer) {
+    auto moregamesmenu = static_cast<CCMenu*>(menuLayer->getChildByID("more-games-menu"));
+
+    if (moregamesmenu) {
+        auto moregamesbtn = static_cast<CCMenuItemSpriteExtra*>(moregamesmenu->getChildByID("more-games-button"));
+
+        if (moregamesbtn) {
+            auto freekeveks = CCSprite::createWithSpriteFrameName("GJ_freeLevelsBtn_001.png");
+            moregamesbtn->setNormalImage(freekeveks);
+        }
+   }
+}
 
 class $modify(MenuLayer) {
     bool init() {
-        if (!MenuLayer::init())
-            return false;
+        if (!MenuLayer::init()) return false;
 
-        CCMenu* MainMenu = static_cast<CCMenu*>(this->getChildByID("main-menu"));
+        // doing it like this cause im a bit lazy to just drag and drop everything into the same function!
+        // me in 2024 used to make a separate init hook for this, so GDLite was initializing 4 of the same hooks!
 
-            CCMenuItemSpriteExtra* editbtn = static_cast<CCMenuItemSpriteExtra*>(MainMenu->getChildByID("editor-button"));
-
-            CCSprite* fullbtn = CCSprite::createWithSpriteFrameName("GJ_fullBtn_001.png");
-            editbtn->setNormalImage(fullbtn);
-
-        return true;
-    }
-};
-
-class $modify(MenuLayer) {
-    bool init() {
-        if (!MenuLayer::init())
-            return false;
-
-        CCMenu* moregamesmenu = static_cast<CCMenu*>(this->getChildByID("more-games-menu"));
-
-        if (moregamesmenu) {
-            CCMenuItemSpriteExtra* moregamesbtn = static_cast<CCMenuItemSpriteExtra*>(moregamesmenu->getChildByID("more-games-button"));
-
-            if (moregamesbtn) {
-                CCSprite* freekeveks = CCSprite::createWithSpriteFrameName("GJ_freeLevelsBtn_001.png");
-                moregamesbtn->setNormalImage(freekeveks);
-            }
-        }
+        addLiteSprite(this);
+        replaceRightBtn(this);
+        replaceCreatorSprite(this);
+        doMoreGamesStuff(this);
 
         return true;
     }
 };
-
-/*
-class $modify(GJMoreGamesLayer) {
-    void customSetup() {
-        GJMoreGamesLayer::customSetup();
-        #ifndef GEODE_IS_MOBILE
-
-
-        CCLayer* cclayer = dynamic_cast<CCLayer*>(getChildren()->objectAtIndex(0));
-
-
-        auto hidemgmm = Mod::get()->getSettingValue<bool>("remove-more-games-menu-modification");
-
-        if (!hidemgmm) {
-
-        CCSprite* gjmpromo = CCSprite::create("promo_gjm-hd.png"_spr);
-        CCSprite* gjzpromo = CCSprite::create("promo_gjz-hd.png"_spr);
-        CCSprite* gjwpromo = CCSprite::create("promo_gjw-hd.png"_spr);
-        CCLabelBMFont* easports = CCLabelBMFont::create("this bad design is fixed in the full version of Geometry Dash Lite.", "bigFont.fnt");
-
-        CCLabelBMFont* wgat = dynamic_cast<CCLabelBMFont*>(cclayer->getChildren()->objectAtIndex(4));
-        
-
-
-        gjzpromo->setPosition(ccp(283, 219));
-        gjwpromo->setPosition(ccp(283, 127));
-        gjmpromo->setPosition(ccp(283, 34));
-        gjzpromo->setScale(2.01f);
-        gjmpromo->setScale(2.01f);
-        gjwpromo->setScale(2.01f);
-        wgat->setVisible(false);
-        easports->setScale(0.4f);
-        easports->setPosition(283.5, 308);
-        easports->setID("easports");
-
-
-        cclayer->addChild(gjzpromo);
-        cclayer->addChild(gjwpromo);
-        cclayer->addChild(gjmpromo);
-        cclayer->addChild(easports);
-        }
-
-        #endif
-    }
-};
-*/
 
 class $modify(PlayLayer) {
     bool init(GJGameLevel* p0, bool p1) {
-        if (!PlayLayer::init(p0, p1))
-        return false;
+        if (!PlayLayer::init(p0, p1)) return false;
 
-        UILayer*  uilayer = static_cast<UILayer*>(this->getChildByID("UILayer"));
-        CCLabelBMFont* label = CCLabelBMFont::create("GDLite. free trial", "bigFont.fnt");
+        auto uilayer = static_cast<UILayer*>(this->getChildByID("UILayer"));
+        auto label = CCLabelBMFont::create("GDLite. free trial", "bigFont.fnt");
 
-        switch (Mod::get()->getSettingValue<int64_t>("gdlite-wm-pos"))
-        {
-            case 0:
-            /* hide label */
-            label->setVisible(false);
-            break;
-
-            case 1:
-            /* bottom left */
-            label->setPosition(41, 10);
-            break;
-
-            case 2:
-            /* bottom right */
-            label->setPosition(525, 10);
-            break;
-
-            case 3:
-            /* top left */
-            label->setPosition(41, 310);
-            break;
-
-            case 4:
-            /* top right */
-            label->setPosition(525, 310);
-            break;
+        switch (Mod::get()->getSettingValue<int64_t>("gdlite-wm-pos")) {
+            case 0: { // hide label
+                label->setVisible(false);
+                break;
+            }
+            case 1: { // bottom left
+                label->setPosition(41, 10);
+                break;
+            }
+            case 2: { // bottom right
+                label->setPosition(525, 10);
+                break;
+            }
+            case 3: { // top left
+                label->setPosition(41, 310);
+                break;
+            }
+            case 4: { // top right
+                label->setPosition(525, 310);
+                break;
+            }
         }
 
         label->setScale(0.225f);
@@ -182,16 +114,16 @@ class $modify(PlayLayer) {
 
 class $modify(LoadingLayer) {
     bool init(bool p0) {
-        if (!LoadingLayer::init(p0))
-            return false;
-        if (Mod::get()->getSettingValue<bool>("lite-spr-onloadinglayer")) {
-            CCSprite* litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
+        if (!LoadingLayer::init(p0)) return false;
 
-            CCSprite* maintitle = static_cast<CCSprite*>(this->getChildByID("gd-logo")); /* i love you robtop */
+        if (Mod::get()->getSettingValue<bool>("lite-spr-onloadinglayer")) {
+            auto litespr = CCSprite::createWithSpriteFrameName("GJ_lite_001.png");
+
+            auto maintitle = static_cast<CCSprite*>(this->getChildByID("gd-logo"));
             auto maintitlexpos = maintitle->getPositionX();
             auto maintitleypos = maintitle->getPositionY();
 
-            litespr->setPosition(ccp(maintitlexpos + 149, maintitleypos - 32));
+            litespr->setPosition({maintitlexpos + 149, maintitleypos - 32});
 
             this->addChild(litespr);            
         }
