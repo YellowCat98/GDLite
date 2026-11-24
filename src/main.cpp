@@ -1,16 +1,12 @@
-#include <cocos2d.h>
 #include <Geode/Geode.hpp>
-#include <Geode/Bindings.hpp>
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/GJPromoPopup.hpp>
 #include <Geode/modify/CreatorLayer.hpp>
 #include <Geode/modify/GJMoreGamesLayer.hpp>
 #include <Geode/modify/LoadingLayer.hpp>
-#include <string>
 
 using namespace geode::prelude;
-using namespace cocos2d;
 
 class $modify(MenuLayer) {
     bool init() {
@@ -142,8 +138,8 @@ class $modify(GJMoreGamesLayer) {
 */
 
 class $modify(PlayLayer) {
-    bool init(GJGameLevel* p0, bool p1, bool p2) {
-        if (!PlayLayer::init(p0, p1, p2))
+    bool init(GJGameLevel* p0, bool p1) {
+        if (!PlayLayer::init(p0, p1))
         return false;
 
         UILayer*  uilayer = static_cast<UILayer*>(this->getChildByID("UILayer"));
