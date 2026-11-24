@@ -19,8 +19,6 @@ void addLiteSprite(MenuLayer* menuLayer) {
     litespr->setZOrder(2);
     litespr->setID("lite-button");
 
-    litespr->setVisible(!Mod::get()->getSettingValue<bool>("hide-lite-spr"));
-
     menuLayer->addChild(litespr);
 }
 
