@@ -42,16 +42,16 @@ void replaceCreatorSprite(MenuLayer* menuLayer) {
 }
 
 void doMoreGamesStuff(MenuLayer* menuLayer) {
-    auto moregamesmenu = static_cast<CCMenu*>(menuLayer->getChildByID("more-games-menu"));
+    auto moregamesmenu = static_cast<CCMenu*>(menuLayer->getChildByID("news-menu"));
 
     if (moregamesmenu) {
-        auto moregamesbtn = static_cast<CCMenuItemSpriteExtra*>(moregamesmenu->getChildByID("more-games-button"));
+        auto moregamesbtn = static_cast<CCMenuItemSpriteExtra*>(moregamesmenu->getChildByID("news-button"));
 
         if (moregamesbtn) {
             auto freekeveks = CCSprite::createWithSpriteFrameName("GJ_freeLevelsBtn_001.png");
             moregamesbtn->setNormalImage(freekeveks);
         }
-   }
+    }
 }
 
 class $modify(MenuLayer) {
@@ -70,6 +70,7 @@ class $modify(MenuLayer) {
     }
 };
 
+/*
 $on_game(Loaded) {
     auto overlay = OverlayManager::get();
 
@@ -88,6 +89,7 @@ $on_game(Loaded) {
         case 4: overlay->addChildAtPosition(label, Anchor::TopRight, {-xOffset, -yOffset}, false); break;
     }
 }
+*/
 
 
 class $modify(LoadingLayer) {

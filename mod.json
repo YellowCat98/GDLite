@@ -27,14 +27,6 @@
 		]
 	},
 	"settings": {
-		"gdlite-wm-pos": {
-			"name": "GDLite Watermark Position",
-			"description": "Allows changing the position of the GDLite watermark position.\n 0 = no watermark at all\n 1 = Bottom Left\n 2 = Bottom Right\n 3 = Top Left\n 4 = Top Right",
-			"type": "int",
-			"default": 1,
-			"min": 0,
-			"max": 4
-		},
 		"lite-spr-onloadinglayer": {
 			"name": "Lite sprite in LoadingLayer",
 			"description": "Adds the Lite sprite in the LoadingLayer.",
