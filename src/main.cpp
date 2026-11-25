@@ -70,39 +70,25 @@ class $modify(MenuLayer) {
     }
 };
 
-class $modify(PlayLayer) {
-    bool init(GJGameLevel* p0, bool p1) {
-        if (!PlayLayer::init(p0, p1)) return false;
+$on_game(Loaded) {
+    auto overlay = OverlayManager::get();
 
-        auto label = CCLabelBMFont::create("GDLite. free trial", "bigFont.fnt");
-        label->setID("gd-lite-trial-message");
-        label->setScale(0.225f);
-        // these offsets are for bottom left, the others just use them and apply the proper signs (negative/positive)
-        float xOffset = 38.0f;
-        float yOffset = 5.0f;
-        switch (Mod::get()->getSettingValue<int64_t>("gdlite-wm-pos")) {
-            case 0: break; // dies on its own
-            case 1: { // bottom left
-                m_uiLayer->addChildAtPosition(label, Anchor::BottomLeft, {xOffset, yOffset}, false);
-                break;
-            }
-            case 2: { // bottom right
-                m_uiLayer->addChildAtPosition(label, Anchor::BottomRight, {-xOffset, yOffset}, false);
-                break;
-            }
-            case 3: { // top left
-                m_uiLayer->addChildAtPosition(label, Anchor::TopLeft, {xOffset, -yOffset}, false);
-                break;
-            }
-            case 4: { // top right
-                m_uiLayer->addChildAtPosition(label, Anchor::TopRight, {-xOffset, -yOffset}, false);
-                break;
-            }
-        }
+    auto label = geode::Label::create("GDLite. Free Trial.", "bigFont.fnt");
+    label->setScale(0.225f);
+    label->setID("gd-lite-wm"_spr);
 
-        return true;
+
+    float xOffset = 38.0f;
+    float yOffset = 5.0f;
+    switch (Mod::get()->getSettingValue<int>("gdlite-wm-pos")) {
+        case 0: label->setVisible(false); // only doing it like this so if anymod finds my node cute and tries to get it they can get it
+        case 1: overlay->addChildAtPosition(label, Anchor::BottomLeft, {xOffset, yOffset}, false); break;
+        case 2: overlay->addChildAtPosition(label, Anchor::BottomRight, {-xOffset, yOffset}, false); break;
+        case 3: overlay->addChildAtPosition(label, Anchor::TopLeft, {xOffset, -yOffset}, false); break;
+        case 4: overlay->addChildAtPosition(label, Anchor::TopRight, {-xOffset, -yOffset}, false); break;
     }
-};
+}
+
 
 class $modify(LoadingLayer) {
     bool init(bool p0) {
