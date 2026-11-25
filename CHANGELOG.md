@@ -1,3 +1,9 @@
+# 1.4.0
+- Fixed problems with code. (i was making 4 MenuLayer hooks...)
+- Had to remove GDLite watermark due to a crash I couldn't figure out how to fix.
+- ANNIHILATED HEROBRINE
+- Removed leftover resources from older updates.
+
 # 1.3.3
 - iOS support back again!
 
